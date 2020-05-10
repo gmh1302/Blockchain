@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script type="text/javascript" src="js/jquery-1.11.1.js"></script> -->
+    <title>Duck Chain 서비스</title>
+
+<style>
+
+/********** 테이블 css ***********/
+
+    table, th, td {
+        border: 1px solid #bcbcbc;
+    }        
+    table {
+        top: 50%;
+        margin: auto;
+    }        
+
+/*********** 버튼 css ************/
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+</style>
+
+<script>
+
+/* 새로 고침시 값 제거 */
+window.onkeydown = function() 
+{
+    var kcode = event.keyCode;
+    if(kcode == 116) {
+        location.reload();
+    }
+}
+
+/* 유저가 작성한 텍스트와 첨부 이미지를 Hash로 변환 */
+function hash_change()
+{
+    var txt = text.messagebox.value; // 유저가 작성한 텍스트
+    var img = image.profile.value; // 유저가 첨부한 이미지 경로
+
+    document.getElementById('txt').value = txt;
+    document.getElementById('img').value = img;
+
+    alert("적용되었습니다.");
+}
+
+function hash_view()
+{
+    hid.submit();
+
+    // var hash_value = {{hash_val}}
+    // alert(hash_value);
+    // document.getElementById("output").value = hash_value;
+
+    // hid.submit()
+    
+    // var hash_value = {{hash_val}};
+    // document.getElementById('output').value;
+    
+    
+    // alert("good");
+
+    // var txt = hid.usr_txt.value;
+    // var img = hid.usr_img.value;
+
+    // var txt = hid.usr_txt.value;
+    // document.getElementById("output").value = txt;
+
+}
+
+</script>
+</head>
+
+<body>
+    <table border="1" style="margin-top:7%; width: 700px; height: 200px;">
+        <tr>
+            <th colspan="2">
+                <h3 style="text-align:center;">
+                    <img src="https://blogfiles.pstatic.net/MjAyMDA0MjFfMjk0/MDAxNTg3NDgwMzMyMTQ4.KLz0bX-iJi2HpHDeycbLHSafQP3QXEnfzBziYHixO68g.cnlIdBP8pP3ds_nII2XpYVEs_XP3Wmi2gYHcn0O7IG0g.PNG.mh_kim0713/덕체인.png" width="230px" height="150px" /> 
+                </h3>
+            </th>
+        </tr>
+        <form action="/hash_change" method="POST" name="text">
+            <tr>
+                <th style="width: 100px; height: 50px;">내용작성</th>
+                <th>
+                    <div>
+                        <textarea name="messagebox" style="resize: vertical; margin-top: 20px; width: 550px; height: 100px;"></textarea>
+                        <p class="data_count" style="padding-left: 85%; margin-bottom: 20px;">
+                    </div>
+                </th>
+            </tr>
+        </form>
+        <form action="http://localhost/upload.php" method="post" enctype="multipart/form-data" name="image">
+            <tr>
+                <th>이미지 첨부 </th>
+                <th>
+                    <label>
+                        <input id="input" type="file" name="profile" style="width: 87%;">
+                    </label>
+                </th>
+            </tr>
+            <tr id="apply">
+                <th colspan="2"><button type="button" class="myButton" style="margin:10px; width:155px; height:40px;" onclick="hash_change()">Hash 적용</a></th>
+            </tr>
+        </form>
+        <tr>
+            <th>Hash Value</th>
+            <th>
+                <input id="output" name="output" type="text" style="width:95%" value={{hash_val}}>
+            </th>
+        </tr>
+        </form>
+        <form action="/hash" method="get" name="hid">
+            <input id="txt" name="usr_txt" type="hidden" style="width: 87%;" value="">
+            <input id="img" name="usr_img" type="hidden" style="width: 87%;" value="">
+            <tr>
+                <th colspan="2"><button type="button" class="myButton" style="margin:10px; width:155px; height:40px;" onclick="hash_view()">Hash 보기</a></th>
+            </tr>
+        </form>
+    </table>
+    
+    <br><br><br><br><br><br><br>
+</body>
+</html>
